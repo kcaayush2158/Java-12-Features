@@ -1,5 +1,7 @@
 # Java-12-Features
 
+
+------------------------------------------------------------------------------------------
 JEP 189: Shenandoah: A Low-Pause-Time Garbage Collector (Experimental)
 JEP 230: Microbenchmark Suite
 JEP 325: Switch Expressions
@@ -9,8 +11,6 @@ JEP 340: One AArch64 Port, Not Two
 JEP 341: Default CDS Archives
 JEP 344: Abortable Mixed Collections for G1
 JEP 346: Promptly Return Unused Committed Memory from G1
-------------------------------------------------------------------------------------------
-
 JEP 189: Shenandoah: A Low-Pause-Time Garbage Collector (Experimental)
 Implemented and supported by RedHat for aarch64 and amd64, Shenandoah Garbage Collector, described in this paper, provides predictable and short GC pauses independent of the heap size.
 
