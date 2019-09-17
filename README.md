@@ -2,16 +2,19 @@
 
 
 ------------------------------------------------------------------------------------------
-JEP 189: Shenandoah: A Low-Pause-Time Garbage Collector (Experimental)
-JEP 230: Microbenchmark Suite
-JEP 325: Switch Expressions
-JEP 326: Raw String Literals (dropped from JDK 12 release)
-JEP 334: JVM Constants API
-JEP 340: One AArch64 Port, Not Two
-JEP 341: Default CDS Archives
-JEP 344: Abortable Mixed Collections for G1
-JEP 346: Promptly Return Unused Committed Memory from G1
-JEP 189: Shenandoah: A Low-Pause-Time Garbage Collector (Experimental)
+.JEP 189: Shenandoah: A Low-Pause-Time Garbage Collector (Experimental)
+.JEP 230: Microbenchmark Suite
+.JEP 325: Switch Expressions
+.JEP 326: Raw String Literals (dropped from JDK 12 release)
+.JEP 334: JVM Constants API
+.JEP 340: One AArch64 Port, Not Two
+.JEP 341: Default CDS Archives
+.JEP 344: Abortable Mixed Collections for G1
+.JEP 346: Promptly Return Unused Committed Memory from G1
+.JEP 189: Shenandoah: A Low-Pause-Time Garbage Collector (Experimental)
+
+----------------------------------------------------------------------------------------------
+
 Implemented and supported by RedHat for aarch64 and amd64, Shenandoah Garbage Collector, described in this paper, provides predictable and short GC pauses independent of the heap size.
 
 It will be provided as an experimental feature, so in order to use it, -XX:+UnlockExperimentalVMOptions is needed together with -XX:+UseShenandoahGC.
@@ -20,53 +23,57 @@ Also, default (Oracle’s) OpenJDK builds will not contain this feature. You can
 
 On Oracle’s OpenJDK Early-Release build:
 
-$ java -XX:+UnlockExperimentalVMOptions -XX:+UseShenandoahGC
-Error occurred during initialization of VM
-Option -XX:+UseShenandoahGC not supported
-On my custom build, there is no error with these flags.
+     $ java -XX:+UnlockExperimentalVMOptions -XX:+UseShenandoahGC
+     Error occurred during initialization of VM
+     Option -XX:+UseShenandoahGC not supported
+     
+  On my custom build, there is no error with these flags.
+------------------------------------------------------------------------------------------
+# JEP 230: Microbenchmark Suite
 
-JEP 230: Microbenchmark Suite
 A way, and a suite of microbenchmarks, to easily test the performance of JDK, based on Java Microbenchmark Harness (JMH) will be added to JDK source code.
 
 It used like below, but these steps require you to have a system capable of building JDK from the source code.
 
-$ cd jdk-src
-$ sh make/devkit/createJMHBundle.sh
-$ ./configure --with-jmh=build/jmh/jars --enable-headless-only
-$ make test TEST="micro:java.lang.reflect"
+     $ cd jdk-src
+     $ sh make/devkit/createJMHBundle.sh
+     $ ./configure --with-jmh=build/jmh/jars --enable-headless-only
+     $ make test TEST="micro:java.lang.reflect"
 
-... after many lines of output ...
+     ... after many lines of output ...
 
-Test selection 'micro:java.lang.reflect', will run:
-* micro:java.lang.reflect
+     Test selection 'micro:java.lang.reflect', will run:
+     * micro:java.lang.reflect
 
-Running test 'micro:java.lang.reflect'
-# JMH version: 1.21
-# VM version: JDK 12-internal, OpenJDK 64-Bit Server VM, 12-internal+0-adhoc.ubuntu.jdk-src
-# VM invoker: /home/ubuntu/jdk-src/build/linux-x86_64-server-release/images/jdk/bin/java
-# VM options: --add-opens=java.base/java.io=ALL-UNNAMED
-# Warmup: 5 iterations, 10 s each
-# Measurement: 5 iterations, 10 s each
-# Timeout: 10 min per iteration
-# Threads: 1 thread, will synchronize iterations
-# Benchmark mode: Average time, time/op
-# Benchmark: org.openjdk.bench.java.lang.reflect.Clazz.getConstructor
+     Running test 'micro:java.lang.reflect'
+     JMH version: 1.21
+     VM version: JDK 12-internal, OpenJDK 64-Bit Server VM, 12-internal+0-adhoc.ubuntu.jdk-src
+     VM invoker: /home/ubuntu/jdk-src/build/linux-x86_64-server-release/images/jdk/bin/java
+     VM options: --add-opens=java.base/java.io=ALL-UNNAMED
+     Warmup: 5 iterations, 10 s each
+     Measurement: 5 iterations, 10 s each
+     Timeout: 10 min per iteration
+     Threads: 1 thread, will synchronize iterations
+     Benchmark mode: Average time, time/op
+     Benchmark: org.openjdk.bench.java.lang.reflect.Clazz.getConstructor
 
-# Run progress: 0.00% complete, ETA 01:31:40
-# Fork: 1 of 5
-# Warmup Iteration   1: 19.849 ns/op
-# Warmup Iteration   2: 19.067 ns/op
-# Warmup Iteration   3: 20.044 ns/op
-# Warmup Iteration   4: 20.050 ns/op
-# Warmup Iteration   5: 20.061 ns/op
-Iteration   1: 20.037 ns/op
-Iteration   2: 20.019 ns/op
-Iteration   3: 20.070 ns/op
-Iteration   4: 20.052 ns/op
-Iteration   5: 20.024 ns/op
+     Run progress: 0.00% complete, ETA 01:31:40
+     Fork: 1 of 5
+     Warmup Iteration   1: 19.849 ns/op
+     Warmup Iteration   2: 19.067 ns/op
+     Warmup Iteration   3: 20.044 ns/op
+     Warmup Iteration   4: 20.050 ns/op
+     Warmup Iteration   5: 20.061 ns/op
+     Iteration   1: 20.037 ns/op
+     Iteration   2: 20.019 ns/op
+     Iteration   3: 20.070 ns/op
+     Iteration   4: 20.052 ns/op
+     Iteration   5: 20.024 ns/op
 
-.. and continues running many more tests
-JEP 325: Switch Expressions
+    .. and continues running many more tests
+    
+# JEP 325: Switch Expressions
+
 This is a preview feature.
 
 There are two main changes to switch in Java with this JEP:
@@ -75,7 +82,7 @@ Introduction of case L -> syntax that removes the need for break statements, bec
 switch can be an expression, so it can have a value, or it can return a value.
 Example:
 
-public class JEP325 {
+      public class JEP325 {
 
 	public static void main(String[] args) {
 
@@ -124,21 +131,22 @@ public class JEP325 {
 
 	}
 
-}
+     }
 Depending on the arg[0], this outputs the same string (weekday, weekend or invalid) three times.
 
-JEP 326: Raw String Literals (dropped from JDK 12 release)
+# JEP 326: Raw String Literals (dropped from JDK 12 release)
+
 It has been dropped from JDK 12 release.
 
 This is a preview feature.
 
-Raw String Literals make it easy to use strings containing special characters and multi-line strings. Raw String Literals are created with backtick ` symbol. This JEP also introduces String::align function to make it easy to use multi-line indented text, and unescape/escape functions for conversions to/from (traditional) String Literals.
+Raw String Literals make it easy to use strings containing special characters and multi-line strings. Raw String Literals are created with backtick  symbol. This JEP also introduces String::align function to make it easy to use multi-line indented text, and unescape/escape functions for conversions to/from (traditional) String Literals.
 
 Example:
 
-public class JEP326 {
+    public class JEP326 {
   
-  public static void main(String args[]) {
+    public static void main(String args[]) {
 
     // traditional string
     final String s1 = "test";
@@ -168,18 +176,20 @@ public class JEP326 {
 }
 This outputs:
 
-test
+     test
 
                         line1
                           line2
                             line3
-line1
-  line2
-    line3
+      line1
+       line2
+        line3
 
-backtick`inside
-2
-JEP 334: JVM Constants API
+    backtick`inside
+    2
+    
+# JEP 334: JVM Constants API
+
 JEP 334 proposes an API modeling the key class-file and run-time artifacts such as constant pool. Such API will contain classes like ConstantDesc, ClassDesc, and the draft of this API is available here: https://cr.openjdk.java.net/~vromero/constant.api/javadoc.04/java/lang/invoke/constant/package-summary.html.
 
 This will be useful for tools manipulating the classes and methods.
@@ -187,14 +197,16 @@ This will be useful for tools manipulating the classes and methods.
 JEP 340: One AArch64 Port, Not Two
 There are two different set of sources, thus ports, targeting ARM 64-bit in the JDK. One is contributed by Oracle, arm64 (hotspot/cpu/arm), and the other is aarch64 (hotspot/cpu/aarch64). This JEP removes arm64, thus all source code used with #ifdefs under hotspot/cpu/arm will be removed and 64-bit ARM build will be default to aarch64. hotspot/cpu/arm will still provide the 32-bit ARM port.
 
-$ cd jdk-src/src/hotspot/cpu/arm
-$ hg update jdk-12+1
-$ grep -r AARCH64 * | wc -l
-1694
-$ hg update jdk-12+21
-$ grep -r AARCH64 * | wc -l
-0
-JEP 341: Default CDS Archives
+    $ cd jdk-src/src/hotspot/cpu/arm
+    $ hg update jdk-12+1
+    $ grep -r AARCH64 * | wc -l
+    1694
+    $ hg update jdk-12+21
+    $ grep -r AARCH64 * | wc -l
+    0
+    
+# JEP 341: Default CDS Archives
+
 Class Data-Sharing (CDS) is a feature to reduce startup time and benefit from memory sharing. However, if you do not install the JRE with the installer, the CDS archive is not generated by default and java -Xshare:dump has to be run manually.
 
 This can be observed in JDK 11. If you install the JDK 11 GA Release from http://jdk.java.net/11/ , lib/server folder does not contain the CDS archive, classes.jsa file. If you run java -Xshare:dump, it will be generated.
