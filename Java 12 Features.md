@@ -1,6 +1,5 @@
 # Java-12-Features
 
-
 ------------------------------------------------------------------------------------------
 .JEP 189: Shenandoah: A Low-Pause-Time Garbage Collector (Experimental)
 .JEP 230: Microbenchmark Suite
